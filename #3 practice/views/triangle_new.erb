@@ -1,0 +1,24 @@
+<% mass = [] %>
+<% if @errors %>
+  <% @errors.each { |el| mass << el } %>
+<% end %>
+
+<h2>Ввод данных о треугольнике</h2>
+<form action="/triangles/new" method="post">
+  <div class="form-group">
+    <label for="Side_A">Введите сторону A</label>
+    <input type="number" class="form-control" id="Side_A" name="Side_A" placeholder="Введите сторону A" value="<%= @triangle.side_a %>" />
+    <%= mass[0] %>
+  </div>
+  <div class="form-group">
+    <label for="Side_A">Введите сторону B</label>
+    <input type="number" class="form-control" id="Side_B" name="Side_B" placeholder="Введите сторону B" value="<%= @triangle.side_b %>" />
+    <%= mass[1] %>
+  </div>
+  <div class="form-group">
+    <label for="Side_C">Введите сторону C</label>
+    <input type="number" class="form-control" id="Side_C" name="Side_C" placeholder="Введите сторону C" value="<%= @triangle.side_c %>" />
+    <%= mass[2] %>
+  </div>
+  <button type="submit" class="btn btn-primary">Добавить треугольник</button>
+</form>
