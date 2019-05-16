@@ -29,7 +29,7 @@ post '/mark' do
   tmp = @errors.reject { |er| er == '' }
   if tmp.empty?
     settings.diary.add_mark(@mark)
-    redirect to('/mark')
+    redirect to('/diary')
   else
     erb :mark
   end
