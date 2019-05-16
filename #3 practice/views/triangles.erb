@@ -1,0 +1,15 @@
+<h2>Список треугольников</h2>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <% @triangles.each do |triangle| %>
+        <% area = triangle.area %>
+        <% if area == 0 %>
+          <p><%= "#{triangle} -> Не треугольник" %></p>
+        <% else %>
+          <p><%= "#{triangle} -> Треугольник | Площадь: #{area}" %></p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
