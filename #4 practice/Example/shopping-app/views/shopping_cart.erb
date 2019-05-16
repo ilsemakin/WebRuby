@@ -1,0 +1,11 @@
+<h3>Моя корзина с покупками</h3>
+
+<% @shopping_cart.each do |item| %>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"><%= item.name %></h5>
+      <p class="card-text">Цена: <%= item.price %></p>
+      <a href="/shopping_cart/del/<%= item.id %>" class="btn btn-light">Убрать из корзины</a>
+    </div>
+  </div>
+<% end%>
