@@ -12,7 +12,7 @@ class Core
     @store = PStore.new('../data/data_base.pstore')
     @diary = Diary.new
     @commands = { 0 => :help, 1 => :add, 2 => :show_diary, 100 => :exit }
-    
+
     read if File.exist?('../data/data_base.pstore') && !File.zero?('../data/data_base.pstore')
     help
 
@@ -32,7 +32,7 @@ class Core
     task = Input.string('Input task: ')
     mark = Input.number('Input mark: ')
 
-    new_mark = Mark.new(name_course,  task, mark)
+    new_mark = Mark.new(name_course, task, mark)
     @diary.add_mark(new_mark)
   end
 
