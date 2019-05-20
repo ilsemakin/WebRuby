@@ -1,0 +1,10 @@
+<h2>Оценки</h2>
+
+<a href="/new" class="btn btn-success">Добавить тест</a>
+
+<% @marks.each_with_index do |mark, index| %>
+<p>
+Предмет: <%= mark[:name] %>, Оценка: <%= mark[:value] %>, 
+<a href="/edit/<%= index %>" id="edit-mark-<%= index %>">Редактировать</a>
+</p>
+<% end %>
