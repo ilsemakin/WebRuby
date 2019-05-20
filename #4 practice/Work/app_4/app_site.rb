@@ -41,8 +41,7 @@ post '/mark' do
   @mark = Mark.new(params['name_course'], params['task'], params['mark'])
   @errors = @mark.check_field
 
-  tmp = @errors.reject { |er| er == '' }
-  if tmp.empty?
+  if @errors.empty?
     settings.diary.add_mark(@mark)
     redirect to('/diary')
   else
