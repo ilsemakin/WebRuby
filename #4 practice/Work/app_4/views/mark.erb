@@ -1,24 +1,25 @@
-<% mass = [] %>
-<% if @errors %>
-  <% @errors.each { |el| mass << el } %>
-<% end %>
-
 <h2>Ввод данных об оценке</h2>
 <form method="post">
   <div class="form-group">
     <label for="name_course">Введите название курса</label>
     <input type="text" class="form-control" id="name_course" name="name_course" placeholder="Введите название курса" value="<%= @mark.name_course %>" />
-    <%= mass[0] %>
+    <% if @errors%>
+      <%= @errors[:name_course] %>
+    <% end %>
   </div>
   <div class="form-group">
-    <label for="name_course">Введите задачу</label>
+    <label for="task">Введите задачу</label>
     <input type="text" class="form-control" id="task" name="task" placeholder="Введите задачу" value="<%= @mark.task %>" />
-    <%= mass[1] %>
+    <% if @errors%>
+      <%= @errors[:task] %>
+    <% end %>
   </div>
   <div class="form-group">
     <label for="mark">Введите оценку</label>
     <input type="number" class="form-control" id="mark" name="mark" placeholder="Введите оценку" value="<%= @mark.mark %>" />
-    <%= mass[2] %>
+    <% if @errors%>
+      <%= @errors[:mark] %>
+    <% end %>
   </div>
   <button type="submit" class="btn btn-primary">Добавить оценку</button>
 </form>
