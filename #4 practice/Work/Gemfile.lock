@@ -32,8 +32,8 @@ GEM
       rubocop (~> 0.51)
       smart_properties
     erubi (1.8.0)
-    ffi (1.10.0)
-    ffi (1.10.0-x64-mingw32)
+    ffi (1.11.0)
+    ffi (1.11.0-x64-mingw32)
     html_tokenizer (0.0.7)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
