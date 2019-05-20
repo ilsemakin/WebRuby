@@ -11,9 +11,11 @@ class Mark
   end
 
   def check_field
-    errors = ['', '', '']
+    errors = {}
+
     message_empty = 'This field cannot be empty!'
     message_range = 'Number less than 0 or more then 5!'
+
     check_empty(errors, message_empty)
     check_range(errors, message_range)
 
@@ -21,12 +23,12 @@ class Mark
   end
 
   def check_empty(errors, message)
-    errors[0] = message if @name_course.empty?
-    errors[1] = message if @task.empty?
+    errors[:name_course] = message if @name_course.empty?
+    errors[:task] = message if @task.empty?
   end
 
   def check_range(errors, message)
-    errors[2] = message unless (0..5).include?(@mark)
+    errors[:mark] = message unless (0..5).include?(@mark)
   end
 
   def to_s

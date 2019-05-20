@@ -1,11 +1,26 @@
 # frozen_string_literal: true
 
-require 'sinatra'
+require 'pstore'
 require_relative 'lib/mark'
 require_relative 'lib/diary'
 
+store = PStore.new('data/data_base.pstore')
+
+store.transaction(true) do
+  @diary = store[:diary]
+  @diary = Diary.new if !@diary
+end
+
+at_exit do
+  store.transaction do
+    store[:diary] = @diary
+  end
+end
+
+require 'sinatra'
+
 configure do
-    set :diary, Diary.new
+  set :diary, @diary
 end
 
 get '/' do
