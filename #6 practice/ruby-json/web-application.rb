@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'sinatra'
 require 'sinatra/json'
 require 'pp'
 
 get '/' do
-  json :foo => 'bar'
+  json foo: 'bar'
 end
 
 post '/' do

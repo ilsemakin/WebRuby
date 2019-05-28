@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'json'
 require 'pp'
 
-def app_url(path='')
+def app_url(path = '')
   URI("http://localhost:4567/#{path}")
 end
 
@@ -16,7 +18,7 @@ def send_data_to_server
   puts 'Sending POST-request'
   uri = app_url('/')
   request = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
-  request.body = {param1: 'some value', param2: 'some other value'}.to_json
+  request.body = { param1: 'some value', param2: 'some other value' }.to_json
   response = Net::HTTP.start(uri.hostname, uri.port) do |http|
     http.request(request)
   end
@@ -28,6 +30,4 @@ def main
   send_data_to_server
 end
 
-if $0 == __FILE__
-  main
-end
+main if $PROGRAM_NAME == __FILE__
