@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>#6 practice</title>
+  </head>
+
+  <body>
+    <h1>Бронирование мест на авиаперелёты</h1>
+    <nav class="navbar navbar-light bg-faded">
+      <div class="nav navbar-nav">
+        <div class="container">
+            <a class="navbar-brand" href="/flights">Списки рейсов</a>
+            <a class="navbar-brand" href="/flight">Добавить рейс</a>
+            <%= yield %>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/bootstrap.bundle.js"></script>
+  </body>
+</html>
