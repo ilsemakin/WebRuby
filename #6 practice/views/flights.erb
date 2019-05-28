@@ -1,0 +1,20 @@
+<h2>Список рейсов</h2>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ul>
+        <% @flights.each do |flight| %>
+          <li><%= "Аэропорт отправления: #{flight.departure_airport}" %></li>
+          <li><%= "Аэропорт прибытия: #{flight.arrival_airport}" %></li>
+          <li><%= "Номер рейса: #{flight.number}" %></li>
+          <li><%= "Количество доступных посадочных мест: #{flight.available_seats}" %></li>
+          <li><%= "Количество забронированных посадочных мест: #{flight.reserved_seats}" %></li>
+          <li><%= "Время вылета: #{flight.time_departure}" %></li>
+          <li><%= "Время прибытия: #{flight.time_arrival}" %></li>
+          <li><%= "Стоимость билета: #{flight.cost}" %></li>
+          <br />
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
