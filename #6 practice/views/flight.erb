@@ -1,0 +1,69 @@
+<h2>Ввод данных об рейсе</h2>
+<form method="post">
+
+  <div class="form-group">
+    <label for="departure_airport">Введите аэропорт прибытия</label>
+    <input type="text" class="form-control" id="departure_airport" name="departure_airport" placeholder="Введите аэропорт прибытия" value="<%= @flight.departure_airport %>" />
+    <% if @errors %>
+      <%= @errors[:departure_airport] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="arrival_airport">Введите аэропорт отправления</label>
+    <input type="text" class="form-control" id="arrival_airport" name="arrival_airport" placeholder="Введите аэропорт отправления" value="<%= @flight.arrival_airport %>" />
+    <% if @errors %>
+      <%= @errors[:arrival_airport] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="number">Введите номер рейса</label>
+    <input type="number" class="form-control" id="number" name="number" placeholder="Введите номер рейса" value="<%= @flight.number %>" />
+    <% if @errors %>
+      <%= @errors[:number] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="available_seats">Введите количество свободных мест</label>
+    <input type="number" class="form-control" id="available_seats" name="available_seats" placeholder="Введите количество свободных мест" value="<%= @flight.available_seats %>" />
+    <% if @errors %>
+      <%= @errors[:available_seats] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="reserved_seats">Введите количество забронированных мест</label>
+    <input type="number" class="form-control" id="reserved_seats" name="reserved_seats" placeholder="Введите количество забронированных мест" value="<%= @flight.reserved_seats %>" />
+    <% if @errors %>
+      <%= @errors[:reserved_seats] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="time_departure">Введите время вылета</label>
+    <input type="text" class="form-control" id="time_departure" name="time_departure" placeholder="Введите время вылета" value="<%= @flight.time_departure %>" />
+    <% if @errors %>
+      <%= @errors[:time_departure] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="time_arrival">Введите время прибытия</label>
+    <input type="text" class="form-control" id="time_arrival" name="time_arrival" placeholder="Введите время прибытия" value="<%= @flight.time_arrival %>" />
+    <% if @errors %>
+      <%= @errors[:time_arrival] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="cost">Введите стоимость билета</label>
+    <input type="number" class="form-control" id="cost" name="cost" placeholder="Введите стоимость билета" value="<%= @flight.cost %>" />
+    <% if @errors %>
+      <%= @errors[:cost] %>
+    <% end %>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Добавить рейс</button>
+</form>
