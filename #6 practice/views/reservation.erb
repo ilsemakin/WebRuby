@@ -1,0 +1,13 @@
+<h2>Бронирование</h2>
+<form method="post">
+
+  <div class="form-group">
+    <label for="departure_airport">Введите аэропорт прибытия</label>
+    <input type="text" class="form-control" id="departure_airport" name="departure_airport" placeholder="Введите аэропорт прибытия" value="<%=  %>" />
+    <% if @errors %>
+      <%= @errors[:departure_airport] %>
+    <% end %>
+  </div>
+
+    <button type="submit" class="btn btn-primary">Забронировать</button>
+</form>

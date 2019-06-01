@@ -33,6 +33,15 @@ get '/flights' do
   erb :flights
 end
 
+get '/selection' do
+  @flights = settings.flights
+  erb :selection
+end
+
+get '/reservation' do
+  erb :reservation
+end
+
 post '/flight' do
   @flight = Flight.new(params['departure_airport'], params['arrival_airport'], params['number'],
                        params['available_seats'], params['reserved_seats'], params['time_departure'],
