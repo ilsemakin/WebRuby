@@ -1,0 +1,79 @@
+<h2>Ввод данных о квартире</h2>
+<form method="post">
+
+  <div class="form-group">
+    <label for="footage">Введите метраж</label>
+    <input type="number" class="form-control" id="footage" name="footage" placeholder="Введите метраж" />
+    <% if @errors %>
+      <%= @errors[:footage] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="rooms">Введите количество комнат</label>
+    <input type="number" class="form-control" id="rooms" name="rooms" placeholder="Введите количество комнат" />
+    <% if @errors %>
+      <%= @errors[:rooms] %>
+    <% end %>
+  </div>
+
+  <ul>
+    <div class="form-group">
+      <label for="district">Введите район</label>
+      <input type="text" class="form-control" id="district" name="district" placeholder="Введите район" />
+      <% if @errors %>
+        <%= @errors[:district] %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <label for="street">Введите улицу</label>
+      <input type="text" class="form-control" id="street" name="street" placeholder="Введите улицу" />
+      <% if @errors %>
+        <%= @errors[:street] %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <label for="house">Введите номер дома</label>
+      <input type="number" class="form-control" id="house" name="house" placeholder="Введите номер дома" />
+      <% if @errors %>
+        <%= @errors[:house] %>
+      <% end %>
+    </div>
+  </ul>
+
+  <div class="form-group">
+    <label for="floor">Введите этаж</label>
+    <input type="number" class="form-control" id="floor" name="floor" placeholder="Введите этаж" />
+    <% if @errors %>
+      <%= @errors[:floor] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="type_of_house">Выберите тип дома</label>
+    <select class="form-control form-control-lg" id="type_of_house" name="type_of_house">
+      <option>Brick</option>
+      <option>Panel</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="number_of_floors">Введите количество этажей</label>
+    <input type="number" class="form-control" id="number_of_floors" name="number_of_floors" placeholder="Введите количество этажей" />
+    <% if @errors %>
+      <%= @errors[:number_of_floors] %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <label for="cost">Введите стоимость квартиры</label>
+    <input type="number" class="form-control" id="cost" name="cost" placeholder="Введите стоимость квартиры" />
+    <% if @errors %>
+      <%= @errors[:cost] %>
+    <% end %>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Добавить квартиру</button>
+</form>
