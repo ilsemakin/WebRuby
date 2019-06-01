@@ -1,5 +1,9 @@
 ---
 linters:
+  FinalNewline:
+    enabled: true
+  SpaceAroundErbTag:
+    enabled: true
   ErbSafety:
     enabled: true
     better_html_config: .better-html.yml
