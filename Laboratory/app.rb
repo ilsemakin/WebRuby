@@ -1,12 +1,31 @@
 # frozen_string_literal: true
 
-require 'sinatra'
+require 'pstore'
 require_relative 'lib/list_apartments'
 require_relative 'lib/apartment'
 require_relative 'lib/address'
 
+storage = PStore.new('data/data_base.pstore')
+
+storage.transaction(true) do
+  @list = storage[:list]
+  @list = ListApartments.new if !@list
+end
+
+at_exit do
+  storage.transaction do
+    storage[:list] = @list
+  end
+end
+
+require 'sinatra'
+
 configure do
-  set :list, ListApartments.new
+  set :list, @list
+end
+
+get '/' do
+  erb :index
 end
 
 get '/add_apartment' do
