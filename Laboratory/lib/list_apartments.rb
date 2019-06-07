@@ -25,4 +25,10 @@ class ListApartments
 
     new_list
   end
+
+  def sort_by_district
+    new_list = @list.sort_by { |apartment| apartment.address.district }
+
+    new_list
+  end
 end
