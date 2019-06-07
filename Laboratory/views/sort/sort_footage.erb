@@ -10,12 +10,13 @@
       <a class="btn btn-secondary" href="/list_apartment/footage" role="button">Метраж</a>
     </div>
   </div>
+</div>
 
 <div class="container">
   <div class="row">
     <div class="col">
       <ul>
-        <% @list_apartment.sort_by_district.each do |apartment| %>
+        <% @list_apartment.sort_by_footage.each do |apartment| %>
           <li><%= "Метраж: #{apartment.footage}" %></li>
           <li><%= "Количество комнат: #{apartment.rooms}" %></li>
           <li><%= 'Адрес:' %></li>
