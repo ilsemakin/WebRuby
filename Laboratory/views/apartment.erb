@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <label for="footage">Введите метраж</label>
-    <input type="number" class="form-control" id="footage" name="footage" placeholder="Введите метраж" />
+    <input type="number" class="form-control" id="footage" name="footage" value="<%= @apartment.footage %>" placeholder="Введите метраж" />
     <% if @errors %>
       <%= @errors[:footage] %>
     <% end %>
@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <label for="rooms">Введите количество комнат</label>
-    <input type="number" class="form-control" id="rooms" name="rooms" placeholder="Введите количество комнат" />
+    <input type="number" class="form-control" id="rooms" name="rooms" value="<%= @apartment.rooms %>" placeholder="Введите количество комнат" />
     <% if @errors %>
       <%= @errors[:rooms] %>
     <% end %>
@@ -20,7 +20,7 @@
   <ul>
     <div class="form-group">
       <label for="district">Введите район</label>
-      <input type="text" class="form-control" id="district" name="district" placeholder="Введите район" />
+      <input type="text" class="form-control" id="district" name="district" placeholder="Введите район" value="<%= @apartment.address.district %>" />
       <% if @errors %>
         <%= @errors[:district] %>
       <% end %>
@@ -28,7 +28,7 @@
 
     <div class="form-group">
       <label for="street">Введите улицу</label>
-      <input type="text" class="form-control" id="street" name="street" placeholder="Введите улицу" />
+      <input type="text" class="form-control" id="street" name="street" placeholder="Введите улицу" value="<%= @apartment.address.street %>" />
       <% if @errors %>
         <%= @errors[:street] %>
       <% end %>
@@ -36,7 +36,7 @@
 
     <div class="form-group">
       <label for="house">Введите номер дома</label>
-      <input type="number" class="form-control" id="house" name="house" placeholder="Введите номер дома" />
+      <input type="number" class="form-control" id="house" name="house" placeholder="Введите номер дома" value="<%= @apartment.address.house %>" />
       <% if @errors %>
         <%= @errors[:house] %>
       <% end %>
@@ -45,7 +45,7 @@
 
   <div class="form-group">
     <label for="floor">Введите этаж</label>
-    <input type="number" class="form-control" id="floor" name="floor" placeholder="Введите этаж" />
+    <input type="number" class="form-control" id="floor" name="floor" placeholder="Введите этаж" value="<%= @apartment.floor %>" />
     <% if @errors %>
       <%= @errors[:floor] %>
     <% end %>
@@ -54,14 +54,14 @@
   <div class="form-group">
     <label for="type_of_house">Выберите тип дома</label>
     <select class="form-control form-control-lg" id="type_of_house" name="type_of_house">
-      <option>Brick</option>
-      <option>Panel</option>
+      <option>Кирпичный</option>
+      <option>Панельный</option>
     </select>
   </div>
 
   <div class="form-group">
     <label for="number_of_floors">Введите количество этажей</label>
-    <input type="number" class="form-control" id="number_of_floors" name="number_of_floors" placeholder="Введите количество этажей" />
+    <input type="number" class="form-control" id="number_of_floors" name="number_of_floors" placeholder="Введите количество этажей" value="<%= @apartment.number_of_floors %>" />
     <% if @errors %>
       <%= @errors[:number_of_floors] %>
     <% end %>
@@ -69,7 +69,7 @@
 
   <div class="form-group">
     <label for="cost">Введите стоимость квартиры</label>
-    <input type="number" class="form-control" id="cost" name="cost" placeholder="Введите стоимость квартиры" />
+    <input type="number" class="form-control" id="cost" name="cost" placeholder="Введите стоимость квартиры" value="<%= @apartment.cost %>" />
     <% if @errors %>
       <%= @errors[:cost] %>
     <% end %>
