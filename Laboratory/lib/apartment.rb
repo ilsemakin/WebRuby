@@ -20,6 +20,7 @@ class Apartment
 
     check_empty(errors)
     check_negative(errors)
+    check_floor(errors)
 
     errors
   end
@@ -34,13 +35,20 @@ class Apartment
   end
 
   def check_negative(errors)
-    message = 'Number < 0!'
+    message = 'Enter a positive number!'
 
     errors[:footage] = message if @footage <= 0
     errors[:rooms] = message if @rooms <= 0
     errors[:house] = message if @address.house <= 0
+    errors[:cost] = message if @cost <= 0
+  end
+
+  def check_floor(errors)
+    message_comparison = 'Floor does not exist!'
+    message = 'Check entered floor!'
+
+    errors[:floor] = message_comparison if @floor > @number_of_floors
     errors[:floor] = message if @floor <= 0
     errors[:number_of_floors] = message if @number_of_floors <= 0
-    errors[:cost] = message if @cost <= 0
   end
 end
