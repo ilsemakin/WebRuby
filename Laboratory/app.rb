@@ -29,6 +29,10 @@ get '/' do
 end
 
 get '/add_apartment' do
+  @apartment = Apartment.new(
+    '', '', Address.new('', '', ''),
+    '', '', '', '')
+
   erb :apartment
 end
 
@@ -36,6 +40,24 @@ get '/list_of_apartment' do
   @list_apartment = settings.list
 
   erb :list_apartment
+end
+
+get '/list_apartment/district' do
+  @list_apartment = settings.list
+
+  erb :sort_district
+end
+
+get '/list_apartment/cost' do
+  @list_apartment = settings.list
+
+  erb :sort_cost
+end
+
+get '/list_apartment/footage' do
+  @list_apartment = settings.list
+
+  erb :sort_footage
 end
 
 post '/add_apartment' do
