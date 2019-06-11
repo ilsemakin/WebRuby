@@ -2,37 +2,42 @@
 
 # creating one apartment
 class Apartment
-  attr_reader :footage, :rooms, :address, :floor
+  attr_reader :footage, :rooms, :address, :floor, :swap
   attr_reader :type_of_house, :number_of_floors, :cost
 
-  def initialize(footage, rooms, address, floor, type_of_house, number_of_floors, cost)
-    @footage = footage.to_i
-    @rooms = rooms.to_i
+  def initialize(footage, rooms, address, floor, type_of_house, number_of_floors, cost, swap)
+    @footage = footage
+    @rooms = rooms
     @address = address
-    @floor = floor.to_i
+    @floor = floor
     @type_of_house = type_of_house
-    @number_of_floors = number_of_floors.to_i
-    @cost = cost.to_i
+    @number_of_floors = number_of_floors
+    @cost = cost
+    @swap = swap
   end
 
   def check_fields
     errors = {}
 
-    check_empty(errors)
     check_negative(errors)
     check_floor(errors)
 
     errors
   end
 
-  private
-
-  def check_empty(errors)
-    message = 'This field cannot be empty!'
-
-    errors[:district] = message if @address.district.empty?
-    errors[:street] = message if @address.street.empty?
+  def to_s
+    str = "Footage: #{@footage}" \
+          "\nRooms: #{@rooms}" \
+          "\nAddress: #{@address}" \
+          "\nFloor: #{@floor}" \
+          "\nType of house: #{@type_of_house}" \
+          "\nNumber of floors: #{@number_of_floors}" \
+          "\nCost: #{@cost}" \
+          "\nSwap: #{@swap}\n\n"
+    str
   end
+
+  private
 
   def check_negative(errors)
     message = 'Enter a positive number!'
