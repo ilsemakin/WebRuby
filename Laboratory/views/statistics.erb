@@ -1,0 +1,18 @@
+<h2>Статистика</h2>
+
+<div class="card-columns">
+  <% @statistics.each do |district, item| %>
+    <div class="card bg-light mb-3" style="max-width: 24rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= "#{district} район" %></h5>
+        <p class="card-text">
+          <ul>
+            <li><%= "Предложений обмена: #{item[0]}" %></li>
+            <ul><li><%= "В этом же районе: #{item[1]}" %></li></ul>
+            <li><%= "Средняя стоимость за метр: #{item[2]}" %></li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
