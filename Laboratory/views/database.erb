@@ -1,0 +1,44 @@
+<h2>Проверка базы данных</h2>
+
+<% unless @database.empty? %>
+  <div class="alert alert-danger" role="alert">
+    Обнаружено несовпадение данных!
+  </div>
+<% end %>
+
+<div class="card-columns">
+  <% @database.each do |key, value| %>
+    <div class="card bg-light mb-3" style="max-width: 24rem;">
+      <div class="card-header">
+        <strong><%= "Район: #{key.district}"%></strong><br />
+        <strong><%= "Улица: #{key.street}, Дом: #{key.house}"%></strong>
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <% value.each do |apartment| %>
+            <div class="card border-danger mb-3" style="max-width: 22rem;">
+              <div class="card-body">
+                <h5 class="card-title">Квартира</h5>
+                <p class="card-text">
+                  <li><%= "Метраж: #{apartment.footage}" %></li>
+                  <li><%= "Вид дома: #{apartment.type_of_house}" %></li>
+                  <li><%= "Количество комнат: #{apartment.rooms}" %></li>
+                  <li><%= "Этаж: #{apartment.floor}" %></li>
+                  <li><%= "Количество этажей: #{apartment.number_of_floors}" %></li>
+                  <li><%= "Стоимость: #{apartment.cost}" %></li>
+                </p>
+                <br />
+              </div>
+            </div>
+          <% end %>
+        </p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @database.empty? %>
+  <div class="alert alert-success" role="alert">
+    База данных не содержит ошибок
+  </div>
+<% end %>
