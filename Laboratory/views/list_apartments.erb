@@ -60,17 +60,18 @@
           </div>
         </p>
         <div class="col">
-          <form action="/find_swaps/<%= "#{key}" %>" method="post">
+          <form action="/find_swaps/<%= key %>" method="POST">
             <button type="submit" class="btn btn-outline-dark btn-block">Найти все обмены</button>
           </form>
         </div>
         <div class="col">
-          <form action="/find_swaps_street/<%= "#{key}" %>" method="post">
+          <form action="/find_swaps_street/<%= key %>" method="POST">
             <button type="submit" class="btn btn-outline-dark btn-block">Найти соседей по обмену</button>
           </form>
         </div>
         <br />
-        <form action="/delete_apartment/<%= "#{key}" %>" method="post">
+        <form action="/delete_apartment/<%= key %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-outline-danger btn-block">Удалить</button>
         </form>
       </div>
