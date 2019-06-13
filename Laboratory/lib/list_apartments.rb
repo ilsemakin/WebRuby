@@ -85,9 +85,7 @@ class ListApartments
   def statistics
     statistics = {}
     districts.each do |district|
-      count = 0
-      swap = 0
-      average = 0
+      count = swap = average = 0
       @list.each_value do |apartment|
         next unless district == apartment.address.district
 
