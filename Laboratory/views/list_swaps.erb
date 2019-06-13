@@ -24,7 +24,7 @@
             <i><%= "Доплата: #{apartment.cost - @cost}" %></i>
           <% end %>
         </p>
-        <form action="<%= "/save_and_delete_apartment/#{key}" %>" method="post">
+        <form action="/save_and_delete_apartment/<%= key %>" method="POST">
           <button type="submit" class="btn btn-outline-success btn-block">Выбрать</button>
         </form>
       </div>

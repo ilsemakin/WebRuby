@@ -5,7 +5,6 @@ require_relative 'checks'
 
 # creating list of apartments
 class ListApartments
-  include Check
   def initialize
     @list = {}
   end
