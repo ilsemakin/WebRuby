@@ -4,7 +4,6 @@ require_relative 'checks'
 
 # creating parameters for swap
 class Swap
-  include Check
   attr_reader :range_footage, :range_rooms, :list_districts, :list_floors, :range_cost
 
   def initialize(range_footage, range_rooms, list_districts, list_floors, range_cost)
@@ -17,13 +16,9 @@ class Swap
 
   def check_fields
     errors = {}
-    message_range = 'Check range!'
-    message_floors = 'Invalid floors'
 
-    errors[:range_footage] = message_range if Check.range(@range_footage)
-    errors[:range_rooms] = message_range if Check.range(@range_rooms)
-    errors[:range_cost] = message_range if Check.range(@range_cost)
-    errors[:list_floors] = message_floors if Check.floors(@list_floors)
+    check_range(errors, @range_footage, @range_rooms, @range_cost)
+    check_floors(errors)
 
     errors
   end
@@ -35,5 +30,17 @@ class Swap
           "\n\tFloors: #{@list_floors.join(', ')}" \
           "\n\tCost: #{@range_cost}"
     str
+  end
+
+  private
+
+  def check_range(errors, *ranges)
+    message = 'Check range!'
+    ranges.each { |range| errors.store(range, message) if Check.range(range) }
+  end
+
+  def check_floors(errors)
+    message = 'Invalid floors!'
+    errors[:list_floors] = message if Check.floors(@list_floors)
   end
 end

@@ -19,8 +19,9 @@ class Apartment
   def check_fields
     errors = {}
 
-    check_negative(errors)
-    check_floor(errors)
+    check_negative_numbers(errors, @footage, @rooms, @address.house,
+                           @floor, @number_of_floors, @cost)
+    check_floor_exist(errors)
 
     errors
   end
@@ -39,21 +40,13 @@ class Apartment
 
   private
 
-  def check_negative(errors)
-    message = 'Enter a positive number!'
-
-    errors[:footage] = message if @footage <= 0
-    errors[:rooms] = message if @rooms <= 0
-    errors[:house] = message if @address.house <= 0
-    errors[:cost] = message if @cost <= 0
+  def check_negative_numbers(errors, *numbers)
+    message = 'Input a positive number!'
+    numbers.each { |number| errors.store(number, message) if number <= 0 }
   end
 
-  def check_floor(errors)
-    message_comparison = 'Floor does not exist!'
-    message = 'Check entered floor!'
-
-    errors[:floor] = message_comparison if @floor > @number_of_floors
-    errors[:floor] = message if @floor <= 0
-    errors[:number_of_floors] = message if @number_of_floors <= 0
+  def check_floor_exist(errors)
+    message = 'Floor does not exist!'
+    errors[:floor_exist] = message if @floor > @number_of_floors
   end
 end
