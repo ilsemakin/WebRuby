@@ -13,10 +13,6 @@ class ListApartments
     @list.each { |key, apartment| yield key, apartment }
   end
 
-  def each_value
-    @list.each_value { |apartment| yield apartment }
-  end
-
   def empty?
     @list.empty?
   end
