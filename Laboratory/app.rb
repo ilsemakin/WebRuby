@@ -6,11 +6,18 @@ require_relative 'lib/address'
 require_relative 'lib/swap'
 require 'pstore'
 
-storage_apartments = PStore.new('data/data_base_apartments.pstore')
+File.delete('data/swaps.txt') if File.exist?('data/swaps.txt')
+storage_apartments = PStore.new('data/database_apartments.pstore')
+test_database = PStore.new('data/test_database.pstore')
 
 storage_apartments.transaction(true) do
   @list_apartments = storage_apartments[:list_apartments]
   @list_apartments = ListApartments.new if !@list_apartments
+end
+
+test_database.transaction(true) do
+  @test = test_database[:list_apartments]
+  @test = ListApartments.new if !@test
 end
 
 at_exit do
@@ -25,11 +32,16 @@ configure do
   set :list_apartments, @list_apartments
 end
 
+configure :test do
+  set :list_apartments, @test
+end
+
 get '/' do
   erb :index
 end
 
 get '/add_apartment' do
+  @errors = {}
   @apartment = Apartment.new('', '', Address.new('', '', ''), '', '', '', '',
                              Swap.new(Range.new('', ''), Range.new('', ''), [], [], Range.new('', '')))
   erb :apartment
@@ -46,10 +58,9 @@ post '/add_apartment' do
                              params['floor'].to_i, params['type_of_house'], params['number_of_floors'].to_i,
                              params['cost'].to_i, swap)
 
-  @errors_apartment = @apartment.check_fields
-  @errors_swap = swap.check_fields
+  @errors = @apartment.check_fields
 
-  if @errors_apartment.empty? && @errors_swap.empty?
+  if @errors.empty?
     settings.list_apartments.add_apartment(@apartment)
     redirect to('/list_of_apartments')
   else
@@ -82,14 +93,14 @@ get '/list_of_apartments/footage' do
   erb :list_apartments
 end
 
-post '/find_swaps/:id' do
+get '/find_swaps/:id' do
   apartment = settings.list_apartments[params['id']]
   @cost = apartment.cost
   @list_swaps = settings.list_apartments.find_swaps(apartment)
   erb :list_swaps
 end
 
-post '/find_swaps_street/:id' do
+get '/find_swaps_street/:id' do
   apartment = settings.list_apartments[params['id']]
   @cost = apartment.cost
   @list_swaps = settings.list_apartments.find_swaps_street(apartment)
