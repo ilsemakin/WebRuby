@@ -6,7 +6,7 @@ require_relative 'lib/address'
 require_relative 'lib/swap'
 require 'pstore'
 
-File.delete('data/swaps.txt') if File.exist?('data/swaps.txt')
+File.new('data/swaps.txt', 'w')
 storage_apartments = PStore.new('data/database_apartments.pstore')
 test_database = PStore.new('data/test_database.pstore')
 
@@ -111,6 +111,10 @@ post '/save_and_delete_apartment/:id' do
   File.write('data/swaps.txt', settings.list_apartments[params['id']], mode: 'a')
   settings.list_apartments.delete(params['id'])
   redirect to('/list_of_apartments')
+end
+
+get '/download' do
+  send_file 'data/swaps.txt'
 end
 
 get '/no_swaps' do
