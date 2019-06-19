@@ -4,10 +4,10 @@
       <h2>Список квартир</h2>
     </div>
     <div class="col">
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <a class="btn btn-secondary" href="/list_of_apartments/district" role="button">Район</a>
-        <a class="btn btn-secondary" href="/list_of_apartments/cost" role="button">Стоимость</a>
-        <a class="btn btn-secondary" href="/list_of_apartments/footage" role="button">Метраж</a>
+      <div class="btn-group" role="group" aria-label="Sorting buttons">
+        <a class="btn btn-secondary" href="/list_of_apartments/district" role="button">По району</a>
+        <a class="btn btn-secondary" href="/list_of_apartments/cost" role="button">По стоимости</a>
+        <a class="btn btn-secondary" href="/list_of_apartments/footage" role="button">По метражу</a>
       </div>
     </div>
   </div>
@@ -44,13 +44,13 @@
                   <li>Подходящие районы</li>
                   <% apartment.swap.list_districts.each do |district| %>
                     <ul>
-                      <li><%= "#{district}" %></li>
+                      <li><%= district %></li>
                     </ul>
                   <% end %>
                   <li>Подходящие этажи</li>
                   <% apartment.swap.list_floors.each do |floor| %>
                     <ul>
-                      <li><%= "#{floor}" %></li>
+                      <li><%= floor %></li>
                     </ul>
                   <% end %>
                   <li><%= "Стоимость от #{apartment.swap.range_cost.min} до #{apartment.swap.range_cost.max}" %></li>
@@ -60,18 +60,18 @@
           </div>
         </p>
         <div class="col">
-          <form action="/find_swaps/<%= key %>" method="POST">
+          <form action="/find_swaps/<%= key %>">
             <button type="submit" class="btn btn-outline-dark btn-block">Найти все обмены</button>
           </form>
         </div>
         <div class="col">
-          <form action="/find_swaps_street/<%= key %>" method="POST">
+          <form action="/find_swaps_street/<%= key %>">
             <button type="submit" class="btn btn-outline-dark btn-block">Найти соседей по обмену</button>
           </form>
         </div>
         <br />
         <form action="/delete_apartment/<%= key %>" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
+          <input type="hidden" name="_method" value="DELETE" />
           <button type="submit" class="btn btn-outline-danger btn-block">Удалить</button>
         </form>
       </div>
