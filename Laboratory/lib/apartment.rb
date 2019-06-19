@@ -19,12 +19,9 @@ class Apartment
   def check_fields
     errors = {}
 
-    check_empty(errors, @address.district, @address.street,
-                @swap.list_districts, @swap.list_floors)
-    check_negative_numbers(errors, @footage, @rooms, @address.house,
-                           @floor, @number_of_floors, @cost)
-    check_range(errors, @swap.range_footage, @swap.range_rooms,
-                @swap.range_cost)
+    check_empty(errors, @address.district, @address.street, @swap.list_districts, @swap.list_floors)
+    check_negative_numbers(errors, @footage, @rooms, @address.house, @floor, @number_of_floors, @cost)
+    check_ranges(errors, @swap.range_footage, @swap.range_rooms, @swap.range_cost)
     check_floor_exist(errors)
     check_floors(errors)
 
@@ -55,14 +52,14 @@ class Apartment
     numbers.each { |number| errors.store(number, message) if number <= 0 }
   end
 
+  def check_ranges(errors, *ranges)
+    message = 'Check range!'
+    ranges.each { |range| errors.store(range, message) if Check.range(range) }
+  end
+
   def check_floor_exist(errors)
     message = 'Floor does not exist!'
     errors[:floor_exist] = message if @floor > @number_of_floors
-  end
-
-  def check_range(errors, *ranges)
-    message = 'Check range!'
-    ranges.each { |range| errors.store(range, message) if Check.range(range) }
   end
 
   def check_floors(errors)
