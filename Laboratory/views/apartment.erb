@@ -5,19 +5,25 @@
   <div class="form-row">
     <div class="col">
       <label for="district">Район</label>
-      <input type="text" class="form-control" id="district" name="district" placeholder="Введите район" value="<%= @apartment.address.district %>" required />
+      <input type="text" class="form-control" id="district" name="district" placeholder="Введите район" value="<%= @apartment.address.district %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.address.district] %></p>
+      <% end %>
     </div>
 
     <div class="col">
       <label for="street">Улица</label>
-      <input type="text" class="form-control" id="street" name="street" placeholder="Введите улицу" value="<%= @apartment.address.street %>" required />
+      <input type="text" class="form-control" id="street" name="street" placeholder="Введите улицу" value="<%= @apartment.address.street %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.address.street] %></p>
+      <% end %>
     </div>
 
     <div class="col">
       <label for="house">Номер дома</label>
-      <input type="number" class="form-control" id="house" name="house" placeholder="Введите номер дома" value="<%= @apartment.address.house %>" required />
-      <% if @errors_apartment %>
-        <p style="color:red;"><%= @errors_apartment[@apartment.address.house] %></p>
+      <input type="number" class="form-control" id="house" name="house" placeholder="Введите номер дома" value="<%= @apartment.address.house %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.address.house] %></p>
       <% end %>
     </div>
   </div>
@@ -25,17 +31,17 @@
   <div class="form-row">
     <div class="col">
       <label for="footage">Метраж</label>
-      <input type="number" class="form-control" id="footage" name="footage" value="<%= @apartment.footage %>" placeholder="Введите метраж" required />
-      <% if @errors_apartment %>
-        <p style="color:red;"><%= @errors_apartment[@apartment.footage] %></p>
+      <input type="number" class="form-control" id="footage" name="footage" value="<%= @apartment.footage %>" placeholder="Введите метраж" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.footage] %></p>
       <% end %>
     </div>
 
     <div class="col">
       <label for="rooms">Количество комнат</label>
-      <input type="number" class="form-control" id="rooms" name="rooms" value="<%= @apartment.rooms %>" placeholder="Введите количество комнат" required />
-      <% if @errors_apartment %>
-        <p style="color:red;"><%= @errors_apartment[@apartment.rooms] %></p>
+      <input type="number" class="form-control" id="rooms" name="rooms" value="<%= @apartment.rooms %>" placeholder="Введите количество комнат" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.rooms] %></p>
       <% end %>
     </div>
 
@@ -51,26 +57,26 @@
   <div class="form-row">
     <div class="col">
       <label for="floor">Этаж</label>
-      <input type="number" class="form-control" id="floor" name="floor" placeholder="Введите этаж" value="<%= @apartment.floor %>" required />
-      <% if @errors_apartment %>
-        <p style="color:red;"><%= @errors_apartment[:floor_exist] %></p>
-        <p style="color:red;"><%= @errors_apartment[@apartment.floor] %></p>
+      <input type="number" class="form-control" id="floor" name="floor" placeholder="Введите этаж" value="<%= @apartment.floor %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[:floor_exist] %></p>
+        <p style="color:red;"><%= @errors[@apartment.floor] %></p>
       <% end %>
     </div>
 
     <div class="col">
       <label for="number_of_floors">Количество этажей дома</label>
-      <input type="number" class="form-control" id="number_of_floors" name="number_of_floors" placeholder="Введите количество этажей дома" value="<%= @apartment.number_of_floors %>" required />
-      <% if @errors_apartment %>
-        <p style="color:red;"><%= @errors_apartment[@apartment.number_of_floors] %></p>
+      <input type="number" class="form-control" id="number_of_floors" name="number_of_floors" placeholder="Введите количество этажей дома" value="<%= @apartment.number_of_floors %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.number_of_floors] %></p>
       <% end %>
     </div>
 
     <div class="col">
       <label for="cost">Стоимость квартиры</label>
-      <input type="number" class="form-control" id="cost" name="cost" placeholder="Введите стоимость квартиры" value="<%= @apartment.cost %>" required />
-      <% if @errors_apartment %>
-        <p style="color:red;"><%= @errors_apartment[@apartment.cost] %></p>
+      <input type="number" class="form-control" id="cost" name="cost" placeholder="Введите стоимость квартиры" value="<%= @apartment.cost %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.cost] %></p>
       <% end %>
     </div>
   </div>
@@ -80,17 +86,17 @@
   <div class="form-row">
     <div class="col">
       <label for="range_footage_first">Метраж: <i>от</i></label>
-      <input type="number" class="form-control" id="range_footage_first" name="range_footage_first" placeholder="От" value="<%= @apartment.swap.range_footage.first %>" required />
-      <% if @errors_swap %>
-        <p style="color:red;"><%= @errors_swap[@apartment.swap.range_footage] %></p>
+      <input type="number" class="form-control" id="range_footage_first" name="range_footage_first" placeholder="От" value="<%= @apartment.swap.range_footage.first %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.swap.range_footage] %></p>
       <% end %>
     </div>
 
     <div class="col">
       <label for="range_footage_end">Метраж: <i>до</i></label>
-      <input type="number" class="form-control" id="range_footage_end" name="range_footage_end" placeholder="До" value="<%= @apartment.swap.range_footage.end %>" required />
-      <% if @errors_swap %>
-        <p style="color:red;"><%= @errors_swap[@apartment.swap.range_footage] %></p>
+      <input type="number" class="form-control" id="range_footage_end" name="range_footage_end" placeholder="До" value="<%= @apartment.swap.range_footage.end %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.swap.range_footage] %></p>
       <% end %>
     </div>
   </div>
@@ -98,44 +104,48 @@
   <div class="form-row">
     <div class="col">
       <label for="range_rooms_first">Количество комнат: <i>от</i></label>
-      <input type="number" class="form-control" id="range_rooms_first" name="range_rooms_first" placeholder="От" value="<%= @apartment.swap.range_rooms.first %>" required />
-      <% if @errors_swap %>
-        <p style="color:red;"><%= @errors_swap[@apartment.swap.range_rooms] %></p>
+      <input type="number" class="form-control" id="range_rooms_first" name="range_rooms_first" placeholder="От" value="<%= @apartment.swap.range_rooms.first %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.swap.range_rooms] %></p>
       <% end %>
     </div>
 
     <div class="col">
       <label for="range_rooms_end">Количество комнат: <i>до</i></label>
-      <input type="number" class="form-control" id="range_rooms_end" name="range_rooms_end" placeholder="До" value="<%= @apartment.swap.range_rooms.end %>" required />
-      <% if @errors_swap %>
-        <p style="color:red;"><%= @errors_swap[@apartment.swap.range_rooms] %></p>
+      <input type="number" class="form-control" id="range_rooms_end" name="range_rooms_end" placeholder="До" value="<%= @apartment.swap.range_rooms.end %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.swap.range_rooms] %></p>
       <% end %>
     </div>
   </div>
 
   <label for="list_districts">Подходящие районы</label>
-  <input type="text" class="form-control" id="list_districts" name="list_districts" placeholder="Введите список подходящих районов" value="<%= @apartment.swap.list_districts.join(' ') %>" required />
+  <input type="text" class="form-control" id="list_districts" name="list_districts" placeholder="Введите список подходящих районов" value="<%= @apartment.swap.list_districts.join(' ') %>" />
+  <% if @errors %>
+      <p style="color:red;"><%= @errors[@apartment.swap.list_districts] %></p>
+  <% end %>
 
   <label for="list_floors">Подходящие этажи</label>
-  <input type="text" class="form-control" id="list_floors" name="list_floors" placeholder="Введите список подходящих этажей" value="<%= @apartment.swap.list_floors.join(' ') %>" required />
-  <% if @errors_swap %>
-      <p style="color:red;"><%= @errors_swap[:list_floors] %></p>
+  <input type="text" class="form-control" id="list_floors" name="list_floors" placeholder="Введите список подходящих этажей" value="<%= @apartment.swap.list_floors.join(' ') %>" />
+  <% if @errors %>
+      <p style="color:red;"><%= @errors[@apartment.swap.list_floors] %></p>
+      <p style="color:red;"><%= @errors[:list_floors] %></p>
   <% end %>
 
   <div class="form-row">
     <div class="col">
       <label for="range_cost_first">Стоимость: <i>от</i></label>
-      <input type="number" class="form-control" id="range_cost_first" name="range_cost_first" placeholder="От" value="<%= @apartment.swap.range_cost.first %>" required />
-      <% if @errors_swap %>
-        <p style="color:red;"><%= @errors_swap[@apartment.swap.range_cost] %></p>
+      <input type="number" class="form-control" id="range_cost_first" name="range_cost_first" placeholder="От" value="<%= @apartment.swap.range_cost.first %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.swap.range_cost] %></p>
       <% end %>
     </div>
 
     <div class="col">
       <label for="range_cost_end">Стоимость: <i>до</i></label>
-      <input type="number" class="form-control" id="range_cost_end" name="range_cost_end" placeholder="До" value="<%= @apartment.swap.range_cost.end %>" required />
-      <% if @errors_swap %>
-        <p style="color:red;"><%= @errors_swap[@apartment.swap.range_cost] %></p>
+      <input type="number" class="form-control" id="range_cost_end" name="range_cost_end" placeholder="До" value="<%= @apartment.swap.range_cost.end %>" />
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@apartment.swap.range_cost] %></p>
       <% end %>
     </div>
   </div>
