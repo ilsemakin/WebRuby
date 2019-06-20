@@ -8,7 +8,7 @@ RSpec.describe 'Обмен квартир :', type: :feature do
   it 'удаление' do
     visit('/')
     click_on('Список квартир')
-    
+
     expect(page).to have_content('Список квартир')
     click_on('По метражу')
 

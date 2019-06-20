@@ -11,13 +11,13 @@ RSpec.describe 'Обмен квартир :', type: :feature do
 
     find_button('Найти все обмены', match: :first).click
     expect(page).to have_content('Обмен')
-    
+
     swap = find_by_id('swap', match: :first).text
     find_button('Выбрать', match: :first).click
     expect(page).to have_content('Список квартир')
 
     click_on('Скачать выбранные обмены')
-    
+
     expect(html).to include(swap)
   end
 end

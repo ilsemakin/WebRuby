@@ -8,7 +8,7 @@ RSpec.describe 'Обмен квартир :', type: :feature do
   it 'поиск соседей по обмену' do
     visit('/')
     click_on('Список квартир')
-    
+
     find_button('Найти соседей по обмену', match: :first).click
     expect(page).to have_content('Обмен')
 
