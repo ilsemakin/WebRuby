@@ -6,7 +6,7 @@ require_relative 'lib/address'
 require_relative 'lib/swap'
 require 'pstore'
 
-File.new('data/swaps.txt', 'w')
+file = File.new('data/swaps.txt', 'w')
 storage_apartments = PStore.new('data/database_apartments.pstore')
 test_database = PStore.new('data/test_database.pstore')
 
@@ -24,6 +24,7 @@ at_exit do
   storage_apartments.transaction do
     storage_apartments[:list_apartments] = @list_apartments
   end
+  file.close
 end
 
 require 'sinatra'
@@ -40,14 +41,14 @@ get '/' do
   erb :index
 end
 
-get '/add_apartment' do
+get '/list_of_apartments/add_apartment' do
   @errors = {}
   @apartment = Apartment.new('', '', Address.new('', '', ''), '', '', '', '',
                              Swap.new(Range.new('', ''), Range.new('', ''), [], [], Range.new('', '')))
   erb :apartment
 end
 
-post '/add_apartment' do
+post '/list_of_apartments/add_apartment' do
   swap = Swap.new(Range.new(params['range_footage_first'].to_i, params['range_footage_end'].to_i),
                   Range.new(params['range_rooms_first'].to_i, params['range_rooms_end'].to_i),
                   params['list_districts'].split(' '), params['list_floors'].split(' ').map(&:to_i),
@@ -68,7 +69,7 @@ post '/add_apartment' do
   end
 end
 
-post '/delete_apartment/:id' do
+delete '/list_of_apartments/delete_apartment/:id' do
   settings.list_apartments.delete(params['id'])
   redirect to('/list_of_apartments')
 end
@@ -78,29 +79,29 @@ get '/list_of_apartments' do
   erb :list_apartments
 end
 
-get '/list_of_apartments/district' do
+get '/list_of_apartments/sort/district' do
   @list_apartments = settings.list_apartments.sort_by_district
   erb :list_apartments
 end
 
-get '/list_of_apartments/cost' do
+get '/list_of_apartments/sort/cost' do
   @list_apartments = settings.list_apartments.sort_by_cost
   erb :list_apartments
 end
 
-get '/list_of_apartments/footage' do
+get '/list_of_apartments/sort/footage' do
   @list_apartments = settings.list_apartments.sort_by_footage
   erb :list_apartments
 end
 
-get '/find_swaps/:id' do
+get '/list_of_apartments/find_swaps/:id' do
   apartment = settings.list_apartments[params['id']]
   @cost = apartment.cost
   @list_swaps = settings.list_apartments.find_swaps(apartment)
   erb :list_swaps
 end
 
-get '/find_swaps_street/:id' do
+get '/list_of_apartments/find_swaps_street/:id' do
   apartment = settings.list_apartments[params['id']]
   @cost = apartment.cost
   @list_swaps = settings.list_apartments.find_swaps_street(apartment)
@@ -142,4 +143,8 @@ get '/check_database' do
     @database = settings.list_apartments.check_database
     erb :database
   end
+end
+
+get '/*' do
+  erb :error
 end
