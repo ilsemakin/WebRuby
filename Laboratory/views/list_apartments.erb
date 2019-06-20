@@ -5,9 +5,9 @@
     </div>
     <div class="col">
       <div class="btn-group" role="group" aria-label="Sorting buttons">
-        <a class="btn btn-secondary" href="/list_of_apartments/district" role="button">По району</a>
-        <a class="btn btn-secondary" href="/list_of_apartments/cost" role="button">По стоимости</a>
-        <a class="btn btn-secondary" href="/list_of_apartments/footage" role="button">По метражу</a>
+        <a class="btn btn-secondary" href="/list_of_apartments/sort/district" role="button">По району</a>
+        <a class="btn btn-secondary" href="/list_of_apartments/sort/cost" role="button">По стоимости</a>
+        <a class="btn btn-secondary" href="/list_of_apartments/sort/footage" role="button">По метражу</a>
       </div>
     </div>
   </div>
@@ -60,17 +60,17 @@
           </div>
         </p>
         <div class="col">
-          <form action="/find_swaps/<%= key %>">
+          <form action="/list_of_apartments/find_swaps/<%= key %>">
             <button type="submit" class="btn btn-outline-dark btn-block">Найти все обмены</button>
           </form>
         </div>
         <div class="col">
-          <form action="/find_swaps_street/<%= key %>">
+          <form action="/list_of_apartments/find_swaps_street/<%= key %>">
             <button type="submit" class="btn btn-outline-dark btn-block">Найти соседей по обмену</button>
           </form>
         </div>
         <br />
-        <form action="/delete_apartment/<%= key %>" method="POST">
+        <form action="/list_of_apartments/delete_apartment/<%= key %>" method="POST">
           <input type="hidden" name="_method" value="DELETE" />
           <button type="submit" class="btn btn-outline-danger btn-block">Удалить</button>
         </form>
