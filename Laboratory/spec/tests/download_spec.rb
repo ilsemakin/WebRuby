@@ -7,12 +7,17 @@ RSpec.describe 'Обмен квартир :', type: :feature do
 
   it 'загрузка файла' do
     visit('/')
+    click_on('Список квартир')
+
+    find_button('Найти все обмены', match: :first).click
+    expect(page).to have_content('Обмен')
+    
+    swap = find_by_id('swap', match: :first).text
+    find_button('Выбрать', match: :first).click
+    expect(page).to have_content('Список квартир')
+
     click_on('Скачать выбранные обмены')
-    expect(html).to have_content('Дзержинский')
-    expect(html).to have_content('Петрова')
-    expect(html).to have_content('7')
-    expect(html).to have_content('80')
-    expect(html).to have_content('Панельный')
-    expect(html).to have_content('2500500')
+    
+    expect(html).to include(swap)
   end
 end
