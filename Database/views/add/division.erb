@@ -1,0 +1,16 @@
+<h2>Добавление отдела</h2><br>
+
+<form action="/add/division" method="POST">
+  <div class="form-row">
+
+    <div class="col-3">
+      <label for="add_division">Введите название отдела</label>
+      <input type="text" class="form-control" id="add_division" name="add_division" placeholder="Введите название отдела" value="<%= @division %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@division] %></p>
+      <% end %>
+      <button type="submit" class="btn btn-primary btn">Добавить</button>
+    </div>
+
+  </div>
+</form>

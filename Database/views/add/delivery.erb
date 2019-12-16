@@ -1,0 +1,50 @@
+<h2>Добавление поставки</h2><br>
+
+<form action="/add/delivery" method="POST">
+  <div class="form-row">
+
+    <div class="col">
+      <label for="name_supplier">Выберите поставщика</label>
+      <select class="form-control" id="name_supplier" name="name_supplier">
+        <% @db.execute 'SELECT name_supplier FROM Suppliers ORDER BY name_supplier' do |row| %>
+          <option><%= row[0] %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="product">Выберите товар</label>
+      <select class="form-control" id="product" name="product">
+        <% @db.execute 'SELECT name_product, price FROM Goods ORDER BY name_product' do |row| %>
+          <option><%= row[0] + " за #{row[1]} ₽" %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="amount">Введите количество товара</label>
+      <input type="text" class="form-control" id="amount" name="amount" placeholder="Введите количество товара" value="<%= @amount %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@amount] %></p>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <label for="product">Выберите тип доставки</label>
+      <select class="form-control" id="type_d" name="type_d">
+          <option>Самовывоз</option>
+          <option>Доставка</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="date">Выберите дату</label>
+      <input type="date" class="form-control" id="date" name="date" placeholder="Дата" value="<%= @date %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@date] %></p>
+      <% end %>
+    </div>
+
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+</form>

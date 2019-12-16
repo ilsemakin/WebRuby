@@ -1,0 +1,33 @@
+<h2>Добавление товара</h2><br>
+
+<form action="/add/product" method="POST">
+  <div class="form-row">
+
+    <div class="col">
+      <label for="name_type_product">Выберите тип товара</label>
+      <select class="form-control" id="name_type_product" name="name_type_product">
+        <% @db.execute 'SELECT name_type_product FROM Products ORDER BY name_type_product' do |row| %>
+          <option><%= row[0] %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="name_product">Введите наименование товара</label>
+      <input type="text" class="form-control" id="name_product" name="name_product" placeholder="Введите наименование товара" value="<%= @name_product %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@name_product] %></p>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <label for="price">Введите цену товара</label>
+      <input type="text" class="form-control" id="price" name="price" placeholder="Введите цену товара" value="<%= @price %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@price] %></p>
+      <% end %>
+    </div>
+
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+</form>

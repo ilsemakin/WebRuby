@@ -1,0 +1,32 @@
+<h2>Добавление поставщика</h2><br>
+
+<form action="/add/supplier" method="POST">
+  <div class="form-row">
+
+    <div class="col">
+      <label for="name_supplier">Введите поставщика</label>
+      <input type="text" class="form-control" id="name_supplier" name="name_supplier" placeholder="Введите поставщика" value="<%= @name_supplier %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@name_supplier] %></p>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <label for="address_supplier">Введите адрес поставщика</label>
+      <input type="text" class="form-control" id="address_supplier" name="address_supplier" placeholder="Введите адрес поставщика" value="<%= @address_supplier %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@address_supplier] %></p>
+      <% end %>
+    </div>
+
+    <div class="col">
+      <label for="phone_supplier">Введите телефон поставщика</label>
+      <input type="text" class="form-control" id="phone_supplier" name="phone_supplier" placeholder="Введите телефон поставщика" value="<%= @phone_supplier %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@phone_supplier] %></p>
+      <% end %>
+    </div>
+
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Добавить</button>
+</form>
