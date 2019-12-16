@@ -1,0 +1,91 @@
+<h2>Таблица товаров</h2>
+<div class="row">
+  <div class="col">
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal">
+      Добавить товар
+    </button>
+  </div>
+</div>
+<br>
+
+<form action="/add/product" method="POST">
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal">Добавление вида товара</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col">
+            <label for="name_type_product">Выберите тип товара</label>
+            <select class="form-control" id="name_type_product" name="name_type_product">
+              <% @db.execute 'SELECT name_type_product FROM Products ORDER BY name_type_product' do |row| %>
+                <option><%= row[0] %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="col">
+            <label for="name_product">Введите наименование товара</label>
+            <input type="text" class="form-control" id="name_product" name="name_product" placeholder="Введите наименование товара" value="<%= @name_product %>" required>
+          </div>
+
+          <div class="col">
+            <label for="price">Введите цену товара</label>
+            <input type="text" class="form-control" id="price" name="price" placeholder="Введите цену товара" value="<%= @price %>" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Добавить</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="table-info align-middle text-center">Редактирование</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Тип товара</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Товар</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Цена</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @db.execute '
+        SELECT id_product, name_type_product, name_product, price
+          FROM Goods
+            NATURAL JOIN Products
+            ORDER BY name_type_product
+        ' do |row| %>
+      <tr>
+        <td class="w-25 align text-center">
+        <div class="form-row">
+          <div class="col-4"></div>
+            <form action="/delete/product/<%= row[0] %>" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-default">
+                <div class="col">
+                  <span style="font-size:15px; color:red;" class="fa fa-times"></span>
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </td>
+        <td class="align-middle text-center"><%= row[1] %></td>
+        <td class="align-middle text-center"><%= row[2] %></td>
+        <td class="align-middle text-center"><%= row[3] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/main" class="btn btn-secondary active" role="button" aria-pressed="true">На главную</a>

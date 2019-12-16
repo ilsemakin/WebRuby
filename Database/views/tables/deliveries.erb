@@ -1,0 +1,112 @@
+<h2>Таблица поставок</h2>
+<div class="row">
+  <div class="col">
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal">
+      Добавить поставку
+    </button>
+  </div>
+</div>
+<br>
+
+<form action="/add/delivery" method="POST">
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal">Добавление поставки</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col">
+            <label for="name_supplier">Выберите поставщика</label>
+            <select class="form-control" id="name_supplier" name="name_supplier">
+              <% @db.execute 'SELECT name_supplier FROM Suppliers ORDER BY name_supplier' do |row| %>
+                <option><%= row[0] %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="col">
+            <label for="product">Выберите товар</label>
+            <select class="form-control" id="product" name="product">
+              <% @db.execute 'SELECT name_product, price FROM Goods ORDER BY name_product' do |row| %>
+                <option><%= row[0] + " за #{row[1]} ₽" %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="col">
+            <label for="amount">Введите количество товара</label>
+            <input type="text" class="form-control" id="amount" name="amount" placeholder="Введите количество товара" value="<%= @amount %>" required>
+          </div>
+
+          <div class="col">
+            <label for="product">Выберите тип доставки</label>
+            <select class="form-control" id="type_d" name="type_d">
+                <option>Самовывоз</option>
+                <option>Доставка</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <label for="date">Выберите дату</label>
+            <input type="date" class="form-control" id="date" name="date" placeholder="Дата" value="<%= @date %>" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Добавить</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="table-info align-middle text-center">Редактирование</th>
+      <th scope="col" class="table-info align-middle">Поставщик</th>
+      <th scope="col" class="table-info align-middle">Товар</th>
+      <th scope="col" class="table-info align-middle text-center">Количество</th>
+      <th scope="col" class="table-info align-middle text-center">Доставка</th>
+      <th scope="col" class="table-info align-middle text-center">Дата поставки</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @db.execute '
+        SELECT id_delivery, id_supplier, name_supplier, name_product, amount, type_delivery, date_delivery
+          FROM Deliveries
+            NATURAL JOIN Suppliers
+            NATURAL JOIN Goods
+            NATURAL JOIN Products
+            ORDER BY date_delivery
+    ' do |row| %>
+    <tr>
+      <td class="w-25 align text-center">
+        <div class="form-row">
+          <div class="col-4"></div>
+            <form action="/delete/delivery/<%= row[0] %>" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-default">
+                <div class="col">
+                  <span style="font-size:15px; color:red;" class="fa fa-times"></span>
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </td>
+      <td class="align-middle"><a href="/supplier/<%= row[1] %> " class="text-dark btn-link" role="button" aria-pressed="true"><%= row[2] %></a></td>
+      <td class="align-middle"><%= row[3] %></td>
+      <td class="align-middle text-center"><%= row[4] %></td>
+      <td class="align-middle text-center"><%=  row[5].to_f == 0.8? "Самовывоз" : "Доставка" %></td>
+      <td class="align-middle text-center"><%= Date.parse(row[6]).strftime('%d.%m.%Y') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

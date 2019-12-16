@@ -1,0 +1,70 @@
+<h2>Таблица отделов</h2>
+<div class="row">
+  <div class="col">
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal">
+      Добавить отдел
+    </button>
+  </div>
+</div>
+<br>
+
+<form action="/add/division" method="POST">
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal">Добавление отдела</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="col">
+              <label for="add_division">Введите название отдела</label>
+              <input type="text" class="form-control" id="add_division" name="add_division" placeholder="Введите название отдела" value="<%= @division %>" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Добавить</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="table-info align-middle text-center">Редактирование</th>
+      <th scope="col" class="table-info align-middle">Отдел</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @db.execute 'SELECT * FROM Divisions ORDER BY name_division' do |row| %>
+    <tr>
+      <td class="w-25 align text-center">
+        <div class="form-row">
+          <div class="col-4"></div>
+            <form action="/delete/division/<%= row[0] %>" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <button type="submit" class="btn btn-default">
+                <div class="col">
+                  <span style="font-size:15px; color:red;" class="fa fa-times"></span>
+                </div>
+              </button>
+            </form>
+          </div>
+        </div>
+      </td>
+      <td class="align-middle"><%= row[1] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/main" class="btn btn-secondary active" role="button" aria-pressed="true">На главную</a>
