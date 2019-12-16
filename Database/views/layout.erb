@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <title>Database</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mx-auto" style="width: 620px;">
+        <h1>Поставка товаров в супермаркет</h1>
+      </div>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="/main">Главная</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Таблицы
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/divisions">Отделы</a>
+                <a class="dropdown-item" href="/products">Виды товаров</a>
+                <a class="dropdown-item" href="/goods">Товары</a>
+                <a class="dropdown-item" href="/suppliers">Поставщики</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Добавление
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/add/division">Добавить отдел</a>
+                <a class="dropdown-item" href="/add/type_product">Добавить вид товара</a>
+                <a class="dropdown-item" href="/add/product">Добавить товар</a>
+                <a class="dropdown-item" href="/add/supplier">Добавить поставщика</a>
+                <a class="dropdown-item" href="/add/delivery">Добавить поставку</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Поиск поставщика
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/find/price">Низкая цена на товар</a>
+                <a class="dropdown-item" href="/find/assortment">Широкий ассортимент в отделе</a>
+                <a class="dropdown-item" href="/find/amount">Выгодные условия</a>
+              </div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Дополнительно
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="/list_supplier">Вывод списка выгодных поставщиков</a>
+                <a class="dropdown-item" href="/pay">Подсчёт выплаты поставщикам</a>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+    <%= yield %>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+
+  </body>
+</html>
