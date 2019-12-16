@@ -1,0 +1,22 @@
+<h2>Информация о поставщике</h2>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="w-25 table-info align-middle text-center">Поставщик</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Адрес</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Телефон</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @db.execute "SELECT * FROM Suppliers WHERE id_supplier = '#{@supplier}'" do |row| %>
+    <tr>
+        <td class="align-middle text-center"><%= row[1] %></td>
+        <td class="align-middle text-center"><%= row[2] %></td>
+        <td class="align-middle text-center"><%= row[3] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/main" class="btn btn-secondary active" role="button" aria-pressed="true">Назад</a>

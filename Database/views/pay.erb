@@ -1,0 +1,71 @@
+<h2>Подсчёт выплаты поставщикам</h2>
+
+<form action="/pay" method="POST">
+  <div class="form-row">
+    <div class="col">
+      <label for="date1">Выберите дату с</label>
+      <input type="date" class="form-control" id="date1" name="date1" placeholder="Дата" value="<%= @date1 %>" required>
+    </div>
+
+    <div class="col">
+      <label for="date2">Выберите дату по</label>
+      <input type="date" class="form-control" id="date2" name="date2" placeholder="Дата" value="<%= @date2 %>" required>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="form-row">
+    <label for="product">Выберите тип оплаты</label>
+    <select class="form-control" id="pay" name="pay">
+        <option>Наличными</option>
+        <option>Карта</option>
+    </select>
+  </div>
+
+ <br><button type="submit" class="btn btn-primary btn-block">Рассчитать</button><br>
+</form>
+
+<% @pay = if @pay == 'Наличными' %>
+<% 1.05 %>
+<% else %>
+  <% 0.95 %>
+<% end %>
+
+<% mass = [] %>
+<% @db.execute "SELECT DISTINCT name_type_product
+                FROM Deliveries NATURAL JOIN Goods NATURAL JOIN Products
+                WHERE DATE(date_delivery) BETWEEN '#{@date1}' AND '#{@date2}'
+  " do |row| %>
+    <% mass << row[0] %>
+  <% end %>
+
+<% mass.each do |el| %>
+  <br>
+  <% break if @date1.nil? || @date2.nil? %>
+  <div class="alert alert-success" role="alert"><%= el %></div>
+
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <th scope="col" class="w-25 table-info align-middle text-center">Поставщик</th>
+        <th scope="col" class="w-25 table-info align-middle text-center">Выплата</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @db.execute "
+        SELECT name_supplier, SUM(price * amount * type_delivery) FROM Deliveries
+        NATURAL JOIN Suppliers NATURAL JOIN Goods NATURAL JOIN Products
+        WHERE name_type_product = '#{el}' AND DATE(date_delivery) BETWEEN '#{@date1}' AND '#{@date2}'
+        GROUP by name_supplier
+
+      " do |row| %>
+      <tr>
+        <td class="align-middle text-center"><%= row[0] %></td>
+        <td class="align-middle text-center"><%= (@pay * row[1].to_i).round(2) %></td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+<% end %>

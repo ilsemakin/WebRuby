@@ -1,0 +1,74 @@
+<h2>Поиск наиболее выгодного поставщика</h2><br>
+
+<form action="/find/amount" method="POST">
+  <div class="form-row">
+    <div class="col-3">
+      <label for="name_product">Выберите тип товара</label>
+    </div>
+    <div class="col-3">
+      <label for="amount">Введите количество товара</label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-3">
+      <select class="form-control" id="name_product" name="name_product">
+        <% @db.execute 'SELECT DISTINCT name_type_product
+                        FROM Deliveries NATURAL JOIN Goods NATURAL JOIN Products
+        ' do |row| %>
+          <option><%= row[0] %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="col-3">
+      <input type="text" class="form-control" id="amount" name="amount" placeholder="Введите количество товара" value="<%= @amount %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@amount] %></p>
+      <% end %>
+    </div>
+
+    <div class="col-3">
+      <button type="submit" class="btn btn-primary btn-block">Найти</button>
+    </div>
+  </div>
+</form>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="w-25 table-info align-middle text-center">Поставщик</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Товар</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Количество</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Цена</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Адрес</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Телефон</th>
+    </tr>
+  </thead>
+  <% if @errors.empty? && !@name_product.nil? %>
+    <tbody>
+      <% @db.execute "
+        SELECT name_supplier, name_product, MIN(amount), price, address, phone
+        FROM Deliveries
+        NATURAL JOIN Suppliers NATURAL JOIN Goods NATURAL JOIN Products
+        WHERE name_type_product = '#{@name_product}' AND amount > '#{@amount}'
+      " do |row| %>
+
+            <% if row[0].nil? %>
+              <div class="alert alert-warning" role="alert">
+                К сожалению не нашлось предложений!
+              </div>
+              <% break %>
+            <% end %>
+
+            <tr>
+              <td class="align-middle text-center"><%= row[0] %></td>
+              <td class="align-middle text-center"><%= row[1] %></td>
+              <td class="align-middle text-center"><%= row[2] %></td>
+              <td class="align-middle text-center"><%= row[3] %></td>
+              <td class="align-middle text-center"><%= row[4] %></td>
+              <td class="align-middle text-center"><%= row[5] %></td>
+            </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

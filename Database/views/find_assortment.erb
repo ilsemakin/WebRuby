@@ -1,0 +1,87 @@
+<h2>Поиск поставщика с широким ассортиментом в отделе</h2>
+
+<form action="/find/assortment" method="POST">
+  <label for="name_division">Выберите отдел</label>
+  <div class="form-row">
+    <div class="col-5">
+      <select class="form-control" id="name_division" name="name_division">
+        <% @db.execute 'SELECT name_division FROM Divisions' do |row| %>
+          <option><%= row[0] %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-5">
+      <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+  </div>
+</form><br>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="w-25 table-info align-middle text-center">Поставщик</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Адрес</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Телефон</th>
+    </tr>
+  </thead>
+  <% unless @name_division.nil? %>
+    <tbody>
+      <div class="alert alert-success" role="alert">Выбран отдел : "<%= params['name_division'].to_s %>"</div>
+      <% @db.execute "
+        SELECT name_division, name_supplier, address, phone, MAX(number)
+          FROM (
+            SELECT name_division, name_supplier, address, phone, COUNT(*) as number
+            FROM Deliveries
+              NATURAL JOIN Suppliers
+              NATURAL JOIN Goods
+              NATURAL JOIN Products
+              NATURAL JOIN Divisions
+              GROUP BY name_division, id_supplier
+          ) WHERE name_division = '#{@name_division}'" do |row| %>
+
+            <% if row[0].nil? %>
+              <div class="alert alert-warning" role="alert">Отдел пустой!</div>
+              <% break %>
+            <% end %>
+
+            <% @name_supplier = row[1] %>
+
+            <tr>
+              <td class="align-middle text-center"><%= row[1] %></td>
+              <td class="align-middle text-center"><%= row[2] %></td>
+              <td class="align-middle text-center"><%= row[3] %></td>
+            </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
+
+<% unless @name_supplier.nil? || @name_supplier.empty? %>
+  <table class="table table-bordered table-sm">
+    <thead>
+      <tr>
+        <th scope="col" class="w-25 table-info align-middle text-center">Товар</th>
+        <th scope="col" class="w-25 table-info align-middle text-center">Количество</th>
+        <th scope="col" class="w-25 table-info align-middle text-center">Цена</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @db.execute "
+        SELECT name_division, name_supplier, name_product, amount, price
+          FROM Divisions
+            NATURAL JOIN Goods
+            NATURAL JOIN Products
+            NATURAL JOIN Deliveries
+            NATURAL JOIN Suppliers
+            WHERE name_division = '#{@name_division}' AND name_supplier = '#{@name_supplier}'
+            ORDER BY name_product" do |row| %>
+
+            <tr>
+              <td class="align-middle text-center"><%= row[2] %></td>
+              <td class="align-middle text-center"><%= row[3] %></td>
+              <td class="align-middle text-center"><%= row[4] %></td>
+            </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

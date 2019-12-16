@@ -1,0 +1,131 @@
+<h2>Вывод списка выгодных поставщиков</h2><br>
+
+<form action="/list_supplier" method="POST">
+  <div class="form-row">
+    <div class="col">
+      <label for="name_product1">Выберите товар 1</label>
+    </div>
+    <div class="col">
+      <label for="amount1">Введите количество товара 1</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <select class="form-control" id="name_product1" name="name_product1">
+        <% @db.execute 'SELECT DISTINCT name_product FROM Deliveries
+                          NATURAL JOIN Goods NATURAL JOIN Products
+        ' do |row| %>
+          <option><%= row[0] %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="col">
+      <input type="text" class="form-control" id="amount1" name="amount1" placeholder="Введите количество товара 1" value="<%= @amount1 %>">
+      <% if @errors %>
+          <p style="color:red;"><%= @errors[@amount1] %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <label for="name_product2">Выберите товар 2</label>
+    </div>
+    <div class="col">
+      <label for="amount2">Введите количество товара 2</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <select class="form-control" id="name_product2" name="name_product2">
+      <option></option>
+        <% @db.execute 'SELECT DISTINCT name_product FROM Deliveries
+                          NATURAL JOIN Goods NATURAL JOIN Products
+        ' do |row| %>
+          <option><%= row[0] %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="col">
+      <input type="text" class="form-control" id="amount2" name="amount2" placeholder="Введите количество товара 2" value="<%= @amount2 %>">
+    </div>
+  </div>
+
+  <br>
+
+  <div class="form-row">
+    <div class="col">
+      <label for="name_product3">Выберите товар 3</label>
+    </div>
+    <div class="col">
+      <label for="amount3">Введите количество товара 3</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col">
+      <select class="form-control" id="name_product3" name="name_product3">
+      <option></option>
+        <% @db.execute 'SELECT DISTINCT name_product FROM Deliveries
+                          NATURAL JOIN Goods NATURAL JOIN Products
+        ' do |row| %>
+          <option><%= row[0] %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="col">
+      <input type="text" class="form-control" id="amount3" name="amount3" placeholder="Введите количество товара 3" value="<%= @amount3 %>">
+    </div>
+  </div>
+
+    <br><button type="submit" class="btn btn-primary btn-block">Найти</button><br>
+</form>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="w-25 table-info align-middle text-center">Поставщик</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Товар</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Количество</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Цена</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Адрес</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Телефон</th>
+    </tr>
+  </thead>
+
+  <% if @errors.empty? && !@name_product1.nil? %>
+    <tbody>
+      <% @db.execute "
+        SELECT name_supplier, name_product, amount, price, address, phone
+        FROM Deliveries
+        NATURAL JOIN Suppliers NATURAL JOIN Goods NATURAL JOIN Products
+        WHERE name_product = '#{@name_product1}' AND amount > '#{@amount1}'
+          OR name_product = '#{@name_product2}' AND amount > '#{@amount2}'
+          OR name_product = '#{@name_product3}' AND amount > '#{@amount3}'
+
+      " do |row| %>
+
+            <% if row[0].nil? %>
+              <div class="alert alert-warning" role="alert">
+                К сожалению не нашлось предложений!
+              </div>
+              <% break %>
+            <% end %>
+
+            <tr>
+              <td class="align-middle text-center"><%= row[0] %></td>
+              <td class="align-middle text-center"><%= row[1] %></td>
+              <td class="align-middle text-center"><%= row[2] %></td>
+              <td class="align-middle text-center"><%= row[3] %></td>
+              <td class="align-middle text-center"><%= row[4] %></td>
+              <td class="align-middle text-center"><%= row[5] %></td>
+            </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>

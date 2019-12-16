@@ -1,0 +1,52 @@
+<h2>Поиск поставщика с низкой ценой на товар</h2>
+
+<form action="/find/price" method="POST">
+  <label for="name_product">Введите наименование товара</label>
+  <div class="form-row">
+    <div class="col-5">
+      <input type="text" class="form-control" id="name_product" name="name_product" placeholder="Введите наименование товара" value="<%= @name_product %>">
+      <% if @errors %>
+        <p style="color:red;"><%= @errors[@name_product] %></p>
+      <% end %>
+    </div>
+    <div class="col-5">
+      <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+  </div>
+</form>
+
+<table class="table table-bordered table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="w-25 table-info align-middle text-center">Товар</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Цена</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Поставщик</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Адрес</th>
+      <th scope="col" class="w-25 table-info align-middle text-center">Телефон</th>
+    </tr>
+  </thead>
+  <% if @errors.empty? && !@name_product.nil? %>
+    <tbody>
+      <% @db.execute "
+        SELECT name_product, MIN(price), name_supplier, address, phone
+          FROM Deliveries NATURAL JOIN Goods NATURAL JOIN Suppliers
+            WHERE name_product LIKE '#{@name_product}%'" do |row| %>
+
+            <% if row[0].nil? %>
+              <div class="alert alert-warning" role="alert">
+                Товар никто не поставляет!
+              </div>
+              <% break %>
+            <% end %>
+
+            <tr>
+              <td class="align-middle text-center"><%= row[0] %></td>
+              <td class="align-middle text-center"><%= row[1] %></td>
+              <td class="align-middle text-center"><%= row[2] %></td>
+              <td class="align-middle text-center"><%= row[3] %></td>
+              <td class="align-middle text-center"><%= row[4] %></td>
+            </tr>
+      <% end %>
+    </tbody>
+  <% end %>
+</table>
