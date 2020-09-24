@@ -2,3 +2,4 @@
 **/js/*
 */coverage/*
 */spec/*.txt
+*.lock
